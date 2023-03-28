@@ -34,7 +34,6 @@ Sample response:
     ]
 */
 app.get('/todos', (req, res) => {
-    res.json(todos);
 });
 
 
@@ -52,16 +51,7 @@ Sample response:
 }
 */
 app.post('/todo/new', (req, res) => {
-    const todo = {
-        id: Math.floor(Math.random() * 1000000),
-        text: req.body.text,
-        complete: false
-    };
 
-    todos.push(todo);
-    fs.writeFileSync('./todos.json', JSON.stringify(todos));
-
-    res.json(todo);
 });
 
 // the below API endpoint should delete a todo from the todos.json file
@@ -76,15 +66,7 @@ Sample response:
 }
 */
 app.delete('/todo/delete/:id', (req, res) => {
-    const todo = todos.find(todo => todo.id === parseInt(req.params.id));
 
-    const index = todos.indexOf(todo);
-
-    todos.splice(index, 1);
-
-    fs.writeFileSync('./todos.json', JSON.stringify(todos));
-
-    res.json(todo);
 });
 
 // the below API endpoint should toggle the complete status of a todo in the todos.json file
@@ -99,13 +81,7 @@ Sample response:
 }
 */
 app.get('/todo/complete/:id', (req, res) => {
-    const todo = todos.find(todo => todo.id === parseInt(req.params.id));
 
-    todo.complete = !todo.complete;
-
-    fs.writeFileSync('./todos.json', JSON.stringify(todos));
-
-    res.json(todo);
 });
 
 app.listen(5000, () => console.log("Server is running on port 5000"));
